@@ -55,7 +55,7 @@ class CSRF_Protection
     if ($this->CI->session->userdata(self::$token_name) === FALSE)
     {
       // Generate a token and store it on session, since old one appears to have expired.
-      self::$token = md5(uniqid() . microtime() . rand());
+      self::$token = bin2hex(openssl_random_pseudo_bytes(16));
 
       $this->CI->session->set_userdata(self::$token_name, self::$token);
     }
